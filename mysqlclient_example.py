@@ -142,7 +142,7 @@ def trade(connection: MySQLdb.Connection, sell_id: str, buy_id: str, amount: int
 def trade_example() -> None:
     with get_mysqlclient_connection(autocommit=False) as conn:
         # If autocommit mode is disabled within a session with SET autocommit = 0,
-        # the session always has a transaction open. 
+        # the session always has a transaction open.
         with conn.cursor() as cur:
             # create two players
             # player 1: id is "1", has only 100 coins.
