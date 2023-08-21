@@ -39,10 +39,10 @@ def get_mysqlclient_connection(autocommit: bool = True) -> MySQLdb.Connection:
 def mysqlclient_recreate_table() -> None:
     with get_mysqlclient_connection() as connection:
         with connection.cursor() as cur:
-            cur.execute("DROP TABLE IF EXISTS player;")
+            cur.execute("DROP TABLE IF EXISTS players;")
             cur.execute(
                 """
-                CREATE TABLE player (
+                CREATE TABLE players (
                     `id` VARCHAR(36),
                     `coins` INTEGER,
                     `goods` INTEGER, PRIMARY KEY (`id`)
@@ -52,25 +52,25 @@ def mysqlclient_recreate_table() -> None:
 
 
 def create_player(cursor: Cursor, player: tuple) -> None:
-    cursor.execute("INSERT INTO player (id, coins, goods) VALUES (%s, %s, %s)", player)
+    cursor.execute("INSERT INTO players (id, coins, goods) VALUES (%s, %s, %s)", player)
 
 
 def get_player(cursor: Cursor, player_id: str) -> tuple:
-    cursor.execute("SELECT id, coins, goods FROM player WHERE id = %s", (player_id,))
+    cursor.execute("SELECT id, coins, goods FROM players WHERE id = %s", (player_id,))
     return cursor.fetchone()
 
 
 def get_players_with_limit(cursor: Cursor, limit: int) -> list[tuple]:
-    cursor.execute("SELECT id, coins, goods FROM player LIMIT %s", (limit,))
+    cursor.execute("SELECT id, coins, goods FROM players LIMIT %s", (limit,))
     return cursor.fetchall()
 
 
 def bulk_create_player(cursor: Cursor, players: list[tuple]) -> None:
-    cursor.executemany("INSERT INTO player (id, coins, goods) VALUES (%s, %s, %s)", players)
+    cursor.executemany("INSERT INTO players (id, coins, goods) VALUES (%s, %s, %s)", players)
 
 
 def get_count(cursor: Cursor) -> None:
-    cursor.execute("SELECT count(*) FROM player")
+    cursor.execute("SELECT count(*) FROM players")
     return cursor.fetchone()[0]
 
 
@@ -111,14 +111,14 @@ def simple_example() -> None:
 def trade(connection: MySQLdb.Connection, sell_id: str, buy_id: str, amount: int, price: int) -> None:
     # This function should be called in a transaction.
     with connection.cursor() as cursor:
-        cursor.execute("SELECT coins, goods FROM player WHERE id = %s FOR UPDATE", (sell_id,))
+        cursor.execute("SELECT coins, goods FROM players WHERE id = %s FOR UPDATE", (sell_id,))
         _, sell_goods = cursor.fetchone()
         if sell_goods < amount:
             print(f"sell player {sell_id} goods not enough")
             connection.rollback()
             return
 
-        cursor.execute("SELECT coins, goods FROM player WHERE id = %s FOR UPDATE", (buy_id,))
+        cursor.execute("SELECT coins, goods FROM players WHERE id = %s FOR UPDATE", (buy_id,))
         buy_coins, _ = cursor.fetchone()
         if buy_coins < price:
             print(f"buy player {buy_id} coins not enough")
@@ -126,7 +126,7 @@ def trade(connection: MySQLdb.Connection, sell_id: str, buy_id: str, amount: int
             return
 
         try:
-            update_player_sql = "UPDATE player set goods = goods + %s, coins = coins + %s WHERE id = %s"
+            update_player_sql = "UPDATE players set goods = goods + %s, coins = coins + %s WHERE id = %s"
             # deduct the goods of seller, and raise his/her the coins
             cursor.execute(update_player_sql, (-amount, price, sell_id))
             # deduct the coins of buyer, and raise his/her the goods
