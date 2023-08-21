@@ -3,7 +3,7 @@
 [English](/README.md) | 中文
 
 这是 PingCAP 为 mysqlclient 编写的用于连接 TIDB 的示例项目
-> TiDB 是一个兼容 MySQL 的数据库。[mysqlcient](https://pypi.org/project/mysqlclient/) 为当前流行的开源 Python Driver 之一。
+> TiDB 是一个兼容 MySQL 的数据库。[mysqlcient](https://github.com/PyMySQL/mysqlclient) 为当前流行的开源 Python Driver 之一。
 
 ## 前置要求
 

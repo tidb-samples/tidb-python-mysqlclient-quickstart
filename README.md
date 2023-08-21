@@ -3,7 +3,7 @@
 English | [中文](/README-zh.md)
 
 This a sample project written by PingCAP for mysqlcient to connect to TiDB.
-> TiDB is a MySQL-compatible database. And [mysqlclient](https://pypi.org/project/mysqlclient/) is a popular open-source driver for Python.
+> TiDB is a MySQL-compatible database. And [mysqlclient](https://github.com/PyMySQL/mysqlclient) is a popular open-source driver for Python.
 
 ## Prerequisites
 
