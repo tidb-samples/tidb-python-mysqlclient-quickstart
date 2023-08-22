@@ -66,6 +66,8 @@ pip install -r requirements.txt
 
 6. 保存文件。
 
+</details>
+
 <details>
 
 <summary><b>(选项 2) TiDB Dedicated</b></summary>
