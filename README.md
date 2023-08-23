@@ -7,7 +7,7 @@ This a sample project written by PingCAP for mysqlcient to connect to TiDB.
 
 ## Prerequisites
 
-- [Python **3.10** or higher](https://www.python.org/downloads/)
+- [Python 3.10 or higher](https://www.python.org/downloads/)
 - [Git](https://git-scm.com/downloads)
 - A TiDB cluster. If you don't have a TiDB cluster, you can create one as follows:
   - (Recommended) Follow [Creating a TiDB Serverless Cluster](https://docs.pingcap.com/tidbcloud/dev-guide-build-cluster-in-cloud) to create your own TiDB Cloud cluster.
@@ -65,6 +65,8 @@ pip install -r requirements.txt
     TiDB Serverless requires a secure connection. Since the `ssl_mode` of mysqlclient defaults to `PREFERRED`, you don't need to manually specify `CA_PATH`. Just leave it empty. But if you have a special reason to specify `CA_PATH` manually, you can refer to the [TLS Connections to TiDB Serverless](https://docs.pingcap.com/tidbcloud/secure-connections-to-serverless-clusters) to get the certificate paths for different operating systems.
 
 6. Save the `.env` file.
+
+</details>
 
 <details>
 
