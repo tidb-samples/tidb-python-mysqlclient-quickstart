@@ -6,4 +6,4 @@ id:test1, coins:10000, goods:10000
 buy player 1 coins not enough
 trade success
 id:1, coins:0, goods:2
-id:2, coins:114614, goods:18
+id:2, coins:114614, goods:10
